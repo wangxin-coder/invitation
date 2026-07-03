@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>邀请函</title>
+    <style>
+        :root {
+            --gold: #c9a96e;
+            --gold-dark: #a68a4e;
+            --rose: #d4a5a5;
+            --bg: #faf8f5;
+            --text: #3d3328;
+            --text-light: #6b5e4e;
+            --card-bg: #ffffff;
+            --accent: #b8860b;
+            --border: #e8dcc8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+            background: linear-gradient(135deg, #fdf6ee 0%, #faf3e6 30%, #fdf8f2 60%, #faf3e6 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            background-attachment: fixed;
+        }
+
+        /* Decorative background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 10%, rgba(201, 169, 110, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 85%, rgba(212, 165, 165, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(201, 169, 110, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatUp 8s infinite;
+        }
+        .particle:nth-child(1) { left: 10%; width: 4px; height: 4px; animation-delay: 0s; animation-duration: 7s; }
+        .particle:nth-child(2) { left: 25%; width: 3px; height: 3px; animation-delay: 2s; animation-duration: 9s; }
+        .particle:nth-child(3) { left: 40%; width: 5px; height: 5px; animation-delay: 4s; animation-duration: 8s; }
+        .particle:nth-child(4) { left: 55%; width: 3px; height: 3px; animation-delay: 1s; animation-duration: 10s; }
+        .particle:nth-child(5) { left: 70%; width: 4px; height: 4px; animation-delay: 3s; animation-duration: 7.5s; }
+        .particle:nth-child(6) { left: 85%; width: 3px; height: 3px; animation-delay: 5s; animation-duration: 8.5s; }
+        .particle:nth-child(7) { left: 15%; width: 2px; height: 2px; animation-delay: 6s; animation-duration: 9.5s; }
+        .particle:nth-child(8) { left: 60%; width: 4px; height: 4px; animation-delay: 3.5s; animation-duration: 6.5s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            50% { opacity: 0.4; }
+            90% { opacity: 0.1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Main card */
+        .invitation {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow:
+                0 4px 40px rgba(0,0,0,0.06),
+                0 1px 3px rgba(0,0,0,0.04),
+                0 20px 60px rgba(201, 169, 110, 0.08);
+            overflow: hidden;
+            animation: cardIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Top ornament */
+        .card-top-ornament {
+            height: 6px;
+            background: linear-gradient(90deg,
+                transparent 0%, var(--gold) 20%, var(--rose) 50%, var(--gold) 80%, transparent 100%);
+        }
+
+        /* Header area */
+        .header {
+            padding: 36px 32px 0;
+            text-align: center;
+        }
+
+        .header-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .header-decoration .line {
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .header-decoration .diamond {
+            color: var(--gold);
+            font-size: 10px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            letter-spacing: 0.25em;
+            color: var(--text-light);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 0.05em;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+        .title .highlight {
+            color: var(--accent);
+        }
+
+        .title-divider {
+            width: 50px;
+            height: 2px;
+            background: var(--gold);
+            margin: 16px auto;
+            border-radius: 1px;
+        }
+
+        .greeting {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Event details */
+        .details {
+            padding: 28px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            animation: fadeSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .detail-item:nth-child(1) { animation-delay: 0.2s; }
+        .detail-item:nth-child(2) { animation-delay: 0.35s; }
+        .detail-item:nth-child(3) { animation-delay: 0.5s; }
+        .detail-item:nth-child(4) { animation-delay: 0.65s; }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateX(-16px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .detail-icon {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            background: linear-gradient(135deg, #fdf6ee, #faf3e6);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .detail-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            padding-top: 2px;
+        }
+        .detail-label {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            color: var(--gold-dark);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .detail-value {
+            font-size: 16px;
+            color: var(--text);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        .detail-value small {
+            font-weight: 400;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Map teaser */
+        .map-teaser {
+            margin: 0 32px;
+            background: linear-gradient(135deg, #f9f5ef, #fdf8f2);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .map-teaser:hover, .map-teaser:active {
+            background: linear-gradient(135deg, #f5efe4, #faf3e6);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+        }
+        .map-pin {
+            font-size: 28px;
+        }
+        .map-text {
+            font-size: 14px;
+            color: var(--text);
+            font-weight: 500;
+        }
+        .map-text small {
+            display: block;
+            font-weight: 400;
+            color: var(--text-light);
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        .map-arrow {
+            margin-left: auto;
+            color: var(--gold);
+            font-size: 18px;
+        }
+
+        /* RSVP section */
+        .rsvp {
+            padding: 24px 32px;
+            text-align: center;
+        }
+        .rsvp-text {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .rsvp-button {
+            display: inline-block;
+            padding: 14px 48px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(201, 169, 110, 0.3);
+            border: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .rsvp-button:hover, .rsvp-button:active {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 28px rgba(201, 169, 110, 0.4);
+        }
+        .rsvp-hint {
+            font-size: 12px;
+            color: #b0a38a;
+            margin-top: 12px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 24px 32px 32px;
+            text-align: center;
+            font-size: 12px;
+            color: #c5b99e;
+            letter-spacing: 0.1em;
+        }
+        .footer .ornament {
+            margin-bottom: 12px;
+            font-size: 16px;
+            color: var(--gold);
+            opacity: 0.6;
+        }
+
+        /* Photo placeholder area */
+        .photo-strip {
+            display: flex;
+            gap: 8px;
+            padding: 8px 32px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .photo-strip::-webkit-scrollbar { display: none; }
+        .photo-placeholder {
+            min-width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #fdf6ee, #faf3e6);
+            border: 1px dashed var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--gold);
+            opacity: 0.6;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 360px) {
+            .title { font-size: 30px; }
+            .header { padding: 28px 24px 0; }
+            .details, .rsvp, .footer { padding-left: 24px; padding-right: 24px; }
+            .map-teaser { margin: 0 24px; }
+            .photo-strip { padding: 8px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating particles -->
+    <div class="particles">
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div>
+    </div>
+
+    <!-- Main invitation card -->
+    <div class="invitation">
+
+        <!-- Top gold strip -->
+        <div class="card-top-ornament"></div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-decoration">
+                <span class="line"></span>
+                <span class="diamond">◆</span>
+                <span class="line"></span>
+            </div>
+            <p class="subtitle">You Are Cordially Invited</p>
+            <h1 class="title">诚挚<span class="highlight">邀请</span></h1>
+            <div class="title-divider"></div>
+            <p class="greeting">
+                谨定于此良辰，敬备薄酌<br>
+                恭请您拨冗莅临，共襄盛会
+            </p>
+        </div>
+
+        <!-- Event Details -->
+        <div class="details">
+            <div class="detail-item">
+                <div class="detail-icon">📅</div>
+                <div class="detail-content">
+                    <span class="detail-label">活动时间</span>
+                    <span class="detail-value">2026年7月15日（周三）<br><small>下午 14:00 — 17:00</small></span>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">📍</div>
+                <div class="detail-content">
+                    <span class="detail-label">活动地点</span>
+                    <span class="detail-value">XX酒店 · 三楼宴会厅<br><small>北京市朝阳区XX路88号</small></span>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">👔</div>
+                <div class="detail-content">
+                    <span class="detail-label">着装要求</span>
+                    <span class="detail-value">商务休闲 / 正装出席</span>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">📞</div>
+                <div class="detail-content">
+                    <span class="detail-label">联系人</span>
+                    <span class="detail-value">张先生 · 138-XXXX-XXXX</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo strip -->
+        <div class="photo-strip">
+            <div class="photo-placeholder">🖼️</div>
+            <div class="photo-placeholder">🖼️</div>
+            <div class="photo-placeholder">🖼️</div>
+            <div class="photo-placeholder">🖼️</div>
+            <div class="photo-placeholder">🖼️</div>
+        </div>
+
+        <!-- Map preview -->
+        <a class="map-teaser" href="https://maps.apple.com/?q=北京市朝阳区XX路88号" target="_blank">
+            <span class="map-pin">🗺️</span>
+            <span class="map-text">点击查看地图<small>导航到活动地点</small></span>
+            <span class="map-arrow">→</span>
+        </a>
+
+        <!-- RSVP -->
+        <div class="rsvp">
+            <p class="rsvp-text">如蒙应允，请于<strong>7月10日前</strong>回复</p>
+            <a class="rsvp-button" href="javascript:void(0)" onclick="handleRSVP()">✨ 确认出席 ✨</a>
+            <p class="rsvp-hint">点击按钮后可通过微信/短信告知我们</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="ornament">✦ ✦ ✦</div>
+            期待您的光临<br>
+            Looking forward to your presence
+        </div>
+    </div>
+
+    <script>
+        function handleRSVP() {
+            // You can customize this - e.g., open WeChat, SMS, or a form
+            const phone = '138XXXXXXXX';
+            const message = encodeURIComponent('您好！我已收到邀请，届时将准时出席。');
+            // Try opening SMS first (works on mobile)
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+                window.location.href = `sms:${phone}?body=${message}`;
+            } else {
+                alert('请通过手机短信回复出席：' + phone + '\n\n' + decodeURIComponent(message));
+            }
+        }
+
+        // Intersection Observer for subtle entrance animations (progressive enhancement)
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+        }
+    </script>
+</body>
+</html>
